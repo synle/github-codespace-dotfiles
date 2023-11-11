@@ -1,2 +1,3 @@
 echo '>>> install.sh'
-echo 'Running install.sh' >> /tmp/setup.install>
+date >> /tmp/setup.txt
+echo 'Running install.sh' >> /tmp/setup.txt
