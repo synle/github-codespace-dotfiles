@@ -18,6 +18,12 @@ if ! command -v fnm &> /dev/null; then
   fnm default 24
 fi
 
+# install bat, delta, jq
+sudo apt-get update -qq
+sudo apt-get install -y -qq bat git-delta jq
+# bat is installed as batcat on debian/ubuntu, symlink it
+[ -f /usr/bin/batcat ] && sudo ln -sf /usr/bin/batcat /usr/local/bin/bat
+
 # install fzf
 if [ ! -d "$HOME/.fzf" ]; then
   git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
