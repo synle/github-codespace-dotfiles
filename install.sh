@@ -9,6 +9,15 @@ curl -s "$BASE_URL/.build/vimrc"     > "$HOME/.vimrc"
 curl -s "$BASE_URL/.build/inputrc"   > "$HOME/.inputrc"
 curl -s "$BASE_URL/software/bootstrap/profile-core.sh" > "$HOME/.bash_syle"
 
+# install fnm and node 24
+if ! command -v fnm &> /dev/null; then
+  curl -fsSL https://fnm.vercel.app/install | bash
+  export PATH="$HOME/.local/share/fnm:$PATH"
+  eval "$(fnm env)"
+  fnm install 24
+  fnm default 24
+fi
+
 # install fzf
 if [ ! -d "$HOME/.fzf" ]; then
   git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
