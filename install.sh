@@ -1,4 +1,6 @@
-echo '>>> install.sh'
+# This is the HEAVY script — runs once during codespace creation.
+# All tool installs, package downloads, and config setup go here.
+echo '>>> install.sh - main installer (runs once during codespace creation)'
 date >> /tmp/setup.txt
 echo 'Running install.sh' >> /tmp/setup.txt
 
@@ -8,6 +10,12 @@ curl -s "$BASE_URL/.build/gitconfig" > "$HOME/.gitconfig"
 curl -s "$BASE_URL/.build/vimrc"     > "$HOME/.vimrc"
 curl -s "$BASE_URL/.build/inputrc"   > "$HOME/.inputrc"
 curl -s "$BASE_URL/software/bootstrap/profile-core.sh" > "$HOME/.bash_syle"
+curl -s "$BASE_URL/software/bootstrap/profile-advanced.sh" > "$HOME/.bash_syle_advanced"
+
+# install vs code keybindings
+mkdir -p "$HOME/.vscode-server/data/Machine"
+curl -s "$BASE_URL/.build/vs-code-keys-combined" > "$HOME/.vscode-server/data/Machine/keybindings.json"
+curl -s "$BASE_URL/.build/vs-code-config" > "$HOME/.vscode-server/data/Machine/settings.json"
 
 # install fnm and node 24
 if ! command -v fnm &> /dev/null; then
@@ -30,4 +38,10 @@ if [ ! -d "$HOME/.fzf" ]; then
   "$HOME/.fzf/install" --all --no-bash --no-zsh --no-fish
 fi
 
-grep -qF '.bash_syle' "$HOME/.bashrc" 2>/dev/null || echo '[ -f "$HOME/.bash_syle" ] && source "$HOME/.bash_syle"' >> "$HOME/.bashrc"
+# install codespace-specific profile
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cp "$SCRIPT_DIR/profile.sh" "$HOME/.codespace_profile"
+
+grep -qF '.bash_syle' "$HOME/.bashrc" 2>/dev/null || echo '[ -f "$HOME/.bash_syle" ] && source "$HOME/.bash_syle"
+[ -f "$HOME/.bash_syle_advanced" ] && source "$HOME/.bash_syle_advanced"
+[ -f "$HOME/.codespace_profile" ] && source "$HOME/.codespace_profile"' >> "$HOME/.bashrc"
