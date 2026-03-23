@@ -33,6 +33,5 @@
         "ms-toolsai.jupyter"
       ]
     }
-  },
-  "postStartCommand": "grep -qF '.bash_syle' \"$HOME/.bashrc\" 2>/dev/null || echo '[ -f \"$HOME/.bash_syle\" ] && source \"$HOME/.bash_syle\"\n[ -f \"$HOME/.bash_syle_advanced\" ] && source \"$HOME/.bash_syle_advanced\"\n[ -f \"$HOME/.codespace_profile\" ] && source \"$HOME/.codespace_profile\"' >> \"$HOME/.bashrc\""
+  }
 }
