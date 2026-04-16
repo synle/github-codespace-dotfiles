@@ -23,6 +23,17 @@ Two setup paths exist — both must be kept in sync:
 
 ## Key conventions
 
-- All dotfile source files come from `https://raw.githubusercontent.com/synle/bashrc/master/` — the `BASE_URL` variable.
+- All dotfile source files come from `https://github.com/synle/bashrc/blob/head/` — the `BASE_URL` variable (each file URL gets `?raw=1` appended).
 - VS Code config goes into the Machine-level path (`~/.vscode-server/data/Machine/`) so it applies in Codespaces.
 - When adding new dotfiles or tools, update **both** the Dockerfile and `install.sh`.
+
+## GitHub Raw File URLs
+
+When fetching raw file content from GitHub repos, always use the `?raw=1` blob URL format:
+
+https://github.com/{owner}/{repo}/blob/head/{path}?raw=1
+
+Do NOT use:
+
+- `https://api.github.com/repos/{owner}/{repo}/contents/{path}` (GitHub Contents API)
+- `https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{path}`
