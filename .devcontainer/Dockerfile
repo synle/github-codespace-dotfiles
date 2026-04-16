@@ -19,17 +19,17 @@ RUN curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell \
 
 
 # Pull in dotfiles (baked into image so no network hit at startup)
-ARG BASE_URL="https://github.com/synle/bashrc/blob/head"
-RUN curl -fsSL "$BASE_URL/.build/gitconfig?raw=1" > /home/vscode/.gitconfig
-RUN curl -fsSL "$BASE_URL/.build/vimrc?raw=1" > /home/vscode/.vimrc
-RUN curl -fsSL "$BASE_URL/.build/inputrc?raw=1" > /home/vscode/.inputrc
-RUN curl -fsSL "$BASE_URL/software/bootstrap/profile-core.sh?raw=1" >> /home/vscode/.bashrc
-RUN curl -fsSL "$BASE_URL/software/bootstrap/profile-advanced.sh?raw=1" >> /home/vscode/.bashrc
+ARG BASE_URL="https://raw.githubusercontent.com/synle/bashrc/HEAD"
+RUN curl -fsSL "$BASE_URL/.build/gitconfig" > /home/vscode/.gitconfig
+RUN curl -fsSL "$BASE_URL/.build/vimrc" > /home/vscode/.vimrc
+RUN curl -fsSL "$BASE_URL/.build/inputrc" > /home/vscode/.inputrc
+RUN curl -fsSL "$BASE_URL/software/bootstrap/profile-core.sh" >> /home/vscode/.bashrc
+RUN curl -fsSL "$BASE_URL/software/bootstrap/profile-advanced.sh" >> /home/vscode/.bashrc
 
 # VS Code config
 RUN mkdir -p /home/vscode/.vscode-server/data/Machine
-RUN curl -fsSL "$BASE_URL/.build/vs-code-keys-combined?raw=1" > /home/vscode/.vscode-server/data/Machine/keybindings.json
-RUN curl -fsSL "$BASE_URL/.build/vs-code-config?raw=1" > /home/vscode/.vscode-server/data/Machine/settings.json
+RUN curl -fsSL "$BASE_URL/.build/vs-code-keys-combined" > /home/vscode/.vscode-server/data/Machine/keybindings.json
+RUN curl -fsSL "$BASE_URL/.build/vs-code-config" > /home/vscode/.vscode-server/data/Machine/settings.json
 
 # Codespace-specific profile (local to this repo, appended to bashrc)
 COPY profile.sh /tmp/profile.sh
