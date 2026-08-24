@@ -36,7 +36,7 @@ GitHub Codespaces looks for these scripts in order:
 
 | Script | When it runs | Purpose |
 |---|---|---|
-| `install.sh` | First, during Codespace creation | Installs tools (fnm, bat, fzf, etc.), downloads dotfiles and VS Code configs |
+| `install.sh` | First, during Codespace creation | Dotfiles entry point — no-op; the devcontainer Dockerfile handles all setup |
 | `setup.sh` | After install, during creation | Post-install hook (currently logging only) |
 | `bootstrap.sh` | Each time the Codespace starts | Startup hook (currently logging only) |
 
